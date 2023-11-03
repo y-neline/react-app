@@ -1,40 +1,79 @@
+import React from 'react';
+import {CssBaseline, Grid} from '@material-ui/core';
+import Navbar from "./components/Navbar"
+import Topbar from './components/AdminPage/scenes/global/Topbar';
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
 import Layout from './components/Layout';
-import Editor from './components/Editor';
-import Admin from './components/Admin';
+import Fueling from './components/Fueling';
+import Admin from './components/Admin/Admin';
+import AdminPage from './components/AdminPage/AdminPage';
+import Maintenance from './components/Maintenance';
 import Missing from './components/Missing';
 import Unauthorized from './components/Unauthorized';
-import Lounge from './components/Lounge';
-import LinkPage from './components/LinkPage';
+import Driver from './components/Driver';
+import MainPage from './components/MainPage/MainPage';
 import RequireAuth from './components/RequireAuth';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import MainHome from './components/pages/MainHome';
+import Contact from './components/pages/Contact';
+import About from './components/pages/About';
+import Services from './components/pages/Services';
+import Team from './components/AdminPage/scenes/team/Team';
+
+{/*
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './App.css';
+import App from './App';
+import { AuthProvider } from './context/AuthProvider';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+ReactDOM.render(<App />, document.getElementById("root"));
+*/}
 
 const ROLES = {
   'User': 2001,
-  'Editor': 1984,
-  'Admin': 5150
+  'Fueling': 1984,
+  'AdminPage': 5150,
+  'Driver': 6001,
+  'Maintenance': 7984
 }
 
 function App() {
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        {/* public routes */}
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="linkpage" element={<LinkPage />} />
-        <Route path="unauthorized" element={<Unauthorized />} />
+    <BrowserRouter>
+    
 
+    <Routes>
+      
+      <Route path="/" element={<MainPage />}></Route>
+        {/* public routes 
+        <Route path="mainpage" element={<MainPage />} ></Route>*/}
+        <Route path="login" element={<Login />} ></Route>
+        <Route path="register" element={<Register />} ></Route>
+        <Route path="unauthorized" element={<Unauthorized />} ></Route>
+
+        
+        {/*Additionally added */}
+        <Route path="/" element={<MainHome/>} ></Route>
+        <Route path="/about" element={<About/>} ></Route>
+        <Route path="/contact" element={<Contact/>} ></Route>
+        <Route path="/services" element={<Services/>} ></Route>
         {/* we want to protect these routes CHANGED*/}
 
         
-        <Route path="/" element={<Home />} />
-        <Route path="editor" element={<Editor />} />
-        <Route path="admin" element={<Admin />} />
-        <Route path="lounge" element={<Lounge />} />
+        <Route path="home" element={<Home />} ></Route>
+        <Route path="fueling" element={<Fueling />} ></Route>
+        <Route path="admin/*" element={<AdminPage />} ></Route>
+
+
+
+        <Route path="maintenance" element={<Maintenance />} ></Route>
+        <Route path="driver" element={<Driver />} ></Route>
         
 
         {/*the original*/}
@@ -42,8 +81,8 @@ function App() {
           <Route path="/" element={<Home />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
-          <Route path="editor" element={<Editor />} />
+        <Route element={<RequireAuth allowedRoles={[ROLES.Fueling]} />}>
+          <Route path="fueling" element={<Fueling />} />
         </Route>
 
 
@@ -51,14 +90,17 @@ function App() {
           <Route path="admin" element={<Admin />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Fueling, ROLES.Admin]} />}>
           <Route path="lounge" element={<Lounge />} />
         </Route> */}
 
         {/* catch all */}
-        <Route path="*" element={<Missing />} />
-      </Route>
+       
+        
+        <Route path="*" element={<></>} ></Route>
+      
     </Routes>
+    </BrowserRouter>
   );
 }
 
